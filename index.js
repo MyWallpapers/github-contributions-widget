@@ -1,6 +1,26 @@
-import { jsxs as s, jsx as o } from "react/jsx-runtime";
-import { useSettings as fe, useViewport as ge, useOAuth as ye, useStorage as be } from "@mywallpaper/sdk-react";
-import { useState as k, useRef as pe, useMemo as A, useCallback as I, useEffect as P } from "react";
+const __MYWALLPAPER_WIDGET_RUNTIME_CONTRACT__ = "1";
+if (!__canvasRuntime) {
+      throw new Error('Canvas runtime globals are unavailable');
+    }
+if (!__canvasRuntime.react || !__canvasRuntime.reactJsxRuntime || !__canvasRuntime.sdkReact || !__canvasRuntime.sdkContracts || !__canvasRuntime.sdkPermissions) {
+      throw new Error('Canvas runtime globals are unavailable');
+    }
+const __canvasRuntimeReact = __canvasRuntime.react;
+const __canvasRuntimeJsxRuntime = __canvasRuntime.reactJsxRuntime;
+const __canvasRuntimeSdk = __canvasRuntime.sdkReact;
+const __canvasRuntimeSdkContracts = __canvasRuntime.sdkContracts;
+const __canvasRuntimeSdkPermissions = __canvasRuntime.sdkPermissions;
+const s = __canvasRuntimeJsxRuntime.jsxs;
+const o = __canvasRuntimeJsxRuntime.jsx;
+const fe = __canvasRuntimeSdk.useSettings;
+const ge = __canvasRuntimeSdk.useViewport;
+const ye = __canvasRuntimeSdk.useOAuth;
+const be = __canvasRuntimeSdk.useStorage;
+const k = __canvasRuntimeReact.useState;
+const pe = __canvasRuntimeReact.useRef;
+const j = __canvasRuntimeReact.useMemo;
+const I = __canvasRuntimeReact.useCallback;
+const E = __canvasRuntimeReact.useEffect;
 const me = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"], ve = `query($username: String!, $from: DateTime!, $to: DateTime!) {
   user(login: $username) {
     contributionsCollection(from: $from, to: $to) {
@@ -26,20 +46,20 @@ function we(e) {
 }
 function Me(e, a) {
   if (a !== "month") return e;
-  const i = /* @__PURE__ */ new Date(), l = i.getFullYear(), h = i.getMonth();
+  const i = /* @__PURE__ */ new Date(), l = i.getFullYear(), d = i.getMonth();
   return e.filter(
-    (b) => b.contributionDays.some((u) => {
-      const c = new Date(u.date);
-      return c.getFullYear() === l && c.getMonth() === h;
+    (b) => b.contributionDays.some((h) => {
+      const c = new Date(h.date);
+      return c.getFullYear() === l && c.getMonth() === d;
     })
   );
 }
 function Se(e, a, i, l) {
-  const b = l.showHeader !== !1, u = l.showLabels !== !1, c = l.showDayLabels !== !1, W = l.showFooter !== !1, x = Math.min(8, e * 0.02, a * 0.02), z = b ? Math.min(40, a * 0.1) : 0, Y = W ? Math.min(24, a * 0.06) : 0;
-  let p = Math.max(80, e - x * 2), w = Math.max(40, a - x * 2 - z - Y);
-  const d = Math.min(p / i, w / 7);
-  let g = Math.max(1, Math.round(d * 0.12));
-  const F = (p - (i - 1) * g) / i, $ = (w - 6 * g) / 7, q = Math.min(F, $), H = c ? Math.max(12, Math.floor(q * 1.2)) : 0, M = u ? Math.max(8, Math.floor($ * 0.7)) : 0;
+  const b = l.showHeader !== !1, h = l.showLabels !== !1, c = l.showDayLabels !== !1, W = l.showFooter !== !1, x = Math.min(8, e * 0.02, a * 0.02), z = b ? Math.min(40, a * 0.1) : 0, A = W ? Math.min(24, a * 0.06) : 0;
+  let p = Math.max(80, e - x * 2), w = Math.max(40, a - x * 2 - z - A);
+  const u = Math.min(p / i, w / 7);
+  let g = Math.max(1, Math.round(u * 0.12));
+  const F = (p - (i - 1) * g) / i, Y = (w - 6 * g) / 7, $ = Math.min(F, Y), H = c ? Math.max(12, Math.floor($ * 1.2)) : 0, M = h ? Math.max(8, Math.floor(Y * 0.7)) : 0;
   p -= H, w -= M;
   let S = (p - (i - 1) * g) / i, C = (w - 6 * g) / 7;
   S = Math.floor(Math.max(2, Math.min(80, S))), C = Math.floor(Math.max(2, Math.min(80, C))), g = Math.max(1, Math.floor(g));
@@ -53,12 +73,12 @@ function Se(e, a, i, l) {
     dayLabelsWidth: H,
     weekHeaderHeight: M,
     headerHeight: z,
-    footerHeight: Y,
+    footerHeight: A,
     padding: x
   };
 }
 function Ce({ count: e, date: a, x: i, y: l }) {
-  const h = new Date(a).toLocaleDateString("en-US", {
+  const d = new Date(a).toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric"
@@ -88,7 +108,7 @@ function Ce({ count: e, date: a, x: i, y: l }) {
         ] }),
         /* @__PURE__ */ s("span", { style: { color: "#8b949e", marginLeft: 3 }, children: [
           "on ",
-          h
+          d
         ] })
       ]
     }
@@ -99,9 +119,9 @@ function De({
   level: a,
   colorLevels: i,
   cellWidth: l,
-  cellHeight: h,
+  cellHeight: d,
   cellRadius: b,
-  animDelay: u,
+  animDelay: h,
   onHover: c,
   onMove: W,
   onLeave: x
@@ -111,14 +131,14 @@ function De({
     {
       style: {
         width: l,
-        height: h,
+        height: d,
         borderRadius: b,
         background: i[a],
         cursor: "pointer",
         flexShrink: 0,
         opacity: 0,
         animation: "fadeIn 0.3s ease forwards",
-        animationDelay: `${u}ms`,
+        animationDelay: `${h}ms`,
         transition: "opacity 0.1s"
       },
       onMouseEnter: (z) => c(e, z),
@@ -128,7 +148,7 @@ function De({
   );
 }
 function ze() {
-  const e = fe(), { width: a, height: i } = ge(), { request: l, isConnected: h } = ye(), b = be(), [u, c] = k("connecting"), [W, x] = k(""), [z, Y] = k(""), [p, w] = k(null), [d, g] = k(null), [F, $] = k((/* @__PURE__ */ new Date()).getFullYear()), [q, H] = k(null), M = pe(null), S = A(
+  const e = fe(), { width: a, height: i } = ge(), { request: l, isConnected: d } = ye(), b = be(), [h, c] = k("connecting"), [W, x] = k(""), [z, A] = k(""), [p, w] = k(null), [u, g] = k(null), [F, Y] = k((/* @__PURE__ */ new Date()).getFullYear()), [$, H] = k(null), M = pe(null), S = j(
     () => [
       e.colorLevel0 || "#161b22",
       e.colorLevel1 || "#0e4429",
@@ -147,7 +167,6 @@ function ze() {
     headers: { Accept: "application/vnd.github.v3+json" }
   })).data, [l]), T = I(
     async (t, n) => {
-      var j;
       const r = `${n}-01-01T00:00:00Z`, f = `${n}-12-31T23:59:59Z`, y = (await l("github", "/graphql", {
         method: "POST",
         headers: {
@@ -159,7 +178,7 @@ function ze() {
           variables: { username: t, from: r, to: f }
         }
       })).data;
-      if ((j = y.errors) != null && j.length)
+      if (y.errors?.length)
         throw new Error(y.errors[0].message || "GraphQL query failed");
       return y.data.user.contributionsCollection;
     },
@@ -181,14 +200,14 @@ function ze() {
       });
     } catch (t) {
       const n = t instanceof Error ? t.message : "Unknown error";
-      x("Failed to Load Data"), Y(n), c("error");
+      x("Failed to Load Data"), A(n), c("error");
     }
   }, [F, e.refreshInterval, b, C, T]);
-  P(() => {
+  E(() => {
     let t = !1;
     async function n() {
       c("connecting");
-      const r = await h("github");
+      const r = await d("github");
       if (!t) {
         if (!r) {
           c("connecting");
@@ -200,36 +219,36 @@ function ze() {
     return n(), () => {
       t = !0;
     };
-  }, [h, m]), P(() => {
-    if (u !== "grid") return;
+  }, [d, m]), E(() => {
+    if (h !== "grid") return;
     const t = (e.refreshInterval || 30) * 60 * 1e3;
     return M.current = setInterval(() => {
       m();
     }, t), () => {
       M.current && (clearInterval(M.current), M.current = null);
     };
-  }, [u, e.refreshInterval, m]), P(() => {
-    $((/* @__PURE__ */ new Date()).getFullYear());
+  }, [h, e.refreshInterval, m]), E(() => {
+    Y((/* @__PURE__ */ new Date()).getFullYear());
   }, []);
-  const R = e.displayMode || "year", G = (d == null ? void 0 : d.contributionCalendar.weeks) ?? [], v = A(() => Me(G, R), [G, R]), U = v.length || 53, N = A(
-    () => Se(a, i, U, e),
-    [a, i, U, e]
-  ), O = A(() => {
+  const R = e.displayMode || "year", P = u?.contributionCalendar.weeks ?? [], v = j(() => Me(P, R), [P, R]), G = v.length || 53, N = j(
+    () => Se(a, i, G, e),
+    [a, i, G, e]
+  ), O = j(() => {
     let t = 0;
     for (const n of v)
       for (const r of n.contributionDays)
         r.contributionCount > t && (t = r.contributionCount);
     return t;
-  }, [v]), X = A(() => {
-    if (!d || e.showLabels === !1) return /* @__PURE__ */ new Map();
-    const t = d.contributionCalendar.months, n = /* @__PURE__ */ new Map();
+  }, [v]), X = j(() => {
+    if (!u || e.showLabels === !1) return /* @__PURE__ */ new Map();
+    const t = u.contributionCalendar.months, n = /* @__PURE__ */ new Map();
     let r = 0, f = 0;
     if (R === "month" && v.length > 0) {
-      const y = new Date(v[0].contributionDays[0].date).getMonth(), j = t.findIndex((he) => {
+      const y = new Date(v[0].contributionDays[0].date).getMonth(), _ = t.findIndex((he) => {
         const ue = new Date(2024, y, 1).toLocaleDateString("en", { month: "short" }).toLowerCase();
         return he.name.toLowerCase().startsWith(ue);
       });
-      r = j === -1 ? 0 : j;
+      r = _ === -1 ? 0 : _;
     }
     for (let L = 0; L < v.length; L++)
       if (t[r]) {
@@ -237,16 +256,16 @@ function ze() {
         f === 0 && n.set(L, y.name.substring(0, 3)), f++, f >= y.totalWeeks && (r++, f = 0);
       }
     return n;
-  }, [d, v, R, e.showLabels]), Z = I((t, n) => {
+  }, [u, v, R, e.showLabels]), Z = I((t, n) => {
     H({ count: t.contributionCount, date: t.date, x: n.clientX, y: n.clientY });
   }, []), V = I((t) => {
     H((n) => n ? { ...n, x: t.clientX, y: t.clientY } : null);
   }, []), J = I(() => {
     H(null);
   }, []), K = I(async () => {
-    await h("github") && await m();
-  }, [h, m]), ee = "@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }";
-  if (u === "connecting")
+    await d("github") && await m();
+  }, [d, m]), ee = "@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }";
+  if (h === "connecting")
     return /* @__PURE__ */ s(
       "div",
       {
@@ -269,7 +288,7 @@ function ze() {
         ]
       }
     );
-  if (u === "loading")
+  if (h === "loading")
     return /* @__PURE__ */ s(
       "div",
       {
@@ -305,7 +324,7 @@ function ze() {
         ]
       }
     );
-  if (u === "error")
+  if (h === "error")
     return /* @__PURE__ */ s(
       "div",
       {
@@ -346,16 +365,16 @@ function ze() {
     );
   const {
     cellWidth: te,
-    cellHeight: B,
-    cellGap: E,
+    cellHeight: U,
+    cellGap: q,
     cellRadius: ne,
     labelFontSize: D,
     dayLabelsWidth: oe,
-    weekHeaderHeight: Q,
+    weekHeaderHeight: B,
     headerHeight: ie,
     footerHeight: re,
     padding: ae
-  } = N, le = e.showHeader !== !1, _ = e.showFooter !== !1, se = e.showDayLabels !== !1, ce = e.showStats !== !1, de = e.showBackground ? {
+  } = N, le = e.showHeader !== !1, Q = e.showFooter !== !1, se = e.showDayLabels !== !1, ce = e.showStats !== !1, de = e.showBackground ? {
     background: e.backgroundColor || "linear-gradient(135deg, #0d1117 0%, #161b22 100%)",
     backdropFilter: `blur(${e.backgroundBlur ?? 10}px)`,
     WebkitBackdropFilter: `blur(${e.backgroundBlur ?? 10}px)`
@@ -415,11 +434,11 @@ function ze() {
                   /* @__PURE__ */ o("div", { style: { fontSize: D * 0.8, color: "#8b949e" }, children: F })
                 ] })
               ] }),
-              _ && ce && d && /* @__PURE__ */ o("div", { style: { display: "flex", gap: 8 }, children: [
-                { value: d.totalCommitContributions, label: "commits" },
-                { value: d.totalPullRequestContributions, label: "PRs" },
-                { value: d.totalIssueContributions, label: "issues" },
-                { value: d.contributionCalendar.totalContributions, label: "total" }
+              Q && ce && u && /* @__PURE__ */ o("div", { style: { display: "flex", gap: 8 }, children: [
+                { value: u.totalCommitContributions, label: "commits" },
+                { value: u.totalPullRequestContributions, label: "PRs" },
+                { value: u.totalIssueContributions, label: "issues" },
+                { value: u.contributionCalendar.totalContributions, label: "total" }
               ].map((t) => /* @__PURE__ */ s("div", { style: { display: "flex", alignItems: "baseline", gap: 2 }, children: [
                 /* @__PURE__ */ o("span", { style: { fontSize: D, fontWeight: 600, color: "#f0f6fc" }, children: we(t.value) }),
                 /* @__PURE__ */ o("span", { style: { fontSize: D * 0.7, color: "#8b949e" }, children: t.label })
@@ -434,16 +453,16 @@ function ze() {
               style: {
                 display: "flex",
                 flexDirection: "column",
-                gap: E,
+                gap: q,
                 width: oe,
                 flexShrink: 0,
-                paddingTop: Q
+                paddingTop: B
               },
               children: me.map((t, n) => /* @__PURE__ */ o(
                 "div",
                 {
                   style: {
-                    height: B,
+                    height: U,
                     fontSize: D,
                     color: "#8b949e",
                     display: "flex",
@@ -458,13 +477,13 @@ function ze() {
               ))
             }
           ),
-          /* @__PURE__ */ o("div", { style: { display: "flex", gap: E, flex: 1 }, children: v.map((t, n) => /* @__PURE__ */ s(
+          /* @__PURE__ */ o("div", { style: { display: "flex", gap: q, flex: 1 }, children: v.map((t, n) => /* @__PURE__ */ s(
             "div",
             {
               style: {
                 display: "flex",
                 flexDirection: "column",
-                gap: E,
+                gap: q,
                 flex: 1
               },
               children: [
@@ -472,7 +491,7 @@ function ze() {
                   "div",
                   {
                     style: {
-                      height: Q,
+                      height: B,
                       fontSize: D,
                       color: "#8b949e",
                       display: "flex",
@@ -492,7 +511,7 @@ function ze() {
                       level: L,
                       colorLevels: S,
                       cellWidth: te,
-                      cellHeight: B,
+                      cellHeight: U,
                       cellRadius: ne,
                       animDelay: y,
                       onHover: Z,
@@ -507,7 +526,7 @@ function ze() {
             n
           )) })
         ] }) }),
-        _ && /* @__PURE__ */ s(
+        Q && /* @__PURE__ */ s(
           "div",
           {
             style: {
@@ -538,7 +557,7 @@ function ze() {
             ]
           }
         ),
-        q && /* @__PURE__ */ o(Ce, { ...q })
+        $ && /* @__PURE__ */ o(Ce, { ...$ })
       ]
     }
   );
